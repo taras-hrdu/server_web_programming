@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+@model AppOrmEntity.Models.Order
+
+<h2>Order Confirmation</h2>
+
+<div class="order-confirmation">
+    <h3>Thank you for your order!</h3>
+    <p>Your order has been successfully processed. Below are the details of your order:</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.BookName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString() $</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total: @Model.TotalAmount.ToString() $</h4>
+
+    <p>If you have any questions, feel free to contact us.</p>
+
+    <a href="/Home/Index" class="btn btn-primary">Back to Home</a>
+</div>

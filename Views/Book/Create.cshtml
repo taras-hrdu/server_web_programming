@@ -1,0 +1,26 @@
+﻿@model AppOrmEntity.Models.Book
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Add New Book</h1>
+
+    <form asp-area="" asp-controller="Book" asp-action="Create" method="post" class="shadow p-4 rounded bg-light">
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label">Book Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter Name" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter Description"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input asp-for="Price" class="form-control" placeholder="Enter Price" required type="number" step="0.01" />
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>

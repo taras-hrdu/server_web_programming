@@ -1,0 +1,30 @@
+﻿@model SageBook
+@{
+    ViewData["Title"] = "Create Sage-Book Link";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Create Sage-Book Link</h2>
+
+    <form asp-action="Create" method="post" class="shadow p-4 rounded bg-light">
+        <div class="form-group mb-3">
+            <label for="IdSage" class="form-label">Sage</label>
+            <select asp-for="IdSage" class="form-control" asp-items="ViewBag.Sages" required>
+                <option value="">Select Sage</option>
+            </select>
+            <span asp-validation-for="IdSage" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="IdBook" class="form-label">Book</label>
+            <select asp-for="IdBook" class="form-control" asp-items="ViewBag.Books" required>
+                <option value="">Select Book</option>
+            </select>
+            <span asp-validation-for="IdBook" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-5">Create Link</button>
+        </div>
+    </form>
+</div>

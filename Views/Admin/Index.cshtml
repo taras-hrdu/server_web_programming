@@ -1,0 +1,201 @@
+﻿@model AppOrmEntity.Models.ViewSageBook
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-center">Books and Sages Management</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-center">
+            <form asp-area="" asp-controller="Book" asp-action="Create" method="get">
+                <button class="btn btn-primary">Create Book</button>
+            </form>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center">
+            <form asp-area="" asp-controller="Sage" asp-action="Create" method="get">
+                <button class="btn btn-primary">Create Sage</button>
+            </form>
+        </div>
+        <div class="text-center mb-3">
+            <form asp-area="" asp-controller="SageBook" asp-action="Create" method="get">
+                <button class="btn btn-primary">Create Sage-Book Link</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionBooks">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingBooks">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBooks" aria-expanded="true" aria-controls="collapseBooks">
+                    Books
+                </button>
+            </h2>
+            <div id="collapseBooks" class="accordion-collapse collapse show" aria-labelledby="headingBooks" data-bs-parent="#accordionBooks">
+                <div class="accordion-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>IdBook</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var book in Model.Books)
+                            {
+                                <tr>
+                                    <td>@book.IdBook</td>
+                                    <td>@book.Name</td>
+                                    <td>@book.Description</td>
+                                    <td>@book.Price</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <form action="@Url.Action("Update", "Book", new { id = book.IdBook })" method="get">
+                                                <button class="btn btn-warning btn-sm">Update</button>
+                                            </form>
+                                            <form action="@Url.Action("Delete", "Book", new { id = book.IdBook })" method="post">
+                                                <button class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionSages">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSages">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSages" aria-expanded="true" aria-controls="collapseSages">
+                    Sages
+                </button>
+            </h2>
+            <div id="collapseSages" class="accordion-collapse collapse" aria-labelledby="headingSages" data-bs-parent="#accordionSages">
+                <div class="accordion-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>IdSage</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Photo</th>
+                                <th>City</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sage in Model.Sages)
+                            {
+                                <tr>
+                                    <td>@sage.IdSage</td>
+                                    <td>@sage.Name</td>
+                                    <td>@sage.Age</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(sage.Photo))
+                                        {
+                                            <img src="@sage.Photo" alt="Photo of @sage.Name" class="img-thumbnail" style="width: 50px; height: 50px;" />
+                                        }
+                                        else
+                                        {
+                                            <span>No Photo</span>
+                                        }
+                                    </td>
+                                    <td>@sage.City</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <form action="@Url.Action("Update", "Sage", new { id = sage.IdSage })" method="get">
+                                                <button class="btn btn-warning btn-sm">Update</button>
+                                            </form>
+                                            <form action="@Url.Action("Delete", "Sage", new { id = sage.IdSage })" method="post">
+                                                <button class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionSageBooks">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSageBooks">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSageBooks" aria-expanded="true" aria-controls="collapseSageBooks">
+                    Sage-Book Links
+                </button>
+            </h2>
+            <div id="collapseSageBooks" class="accordion-collapse collapse" aria-labelledby="headingSageBooks" data-bs-parent="#accordionSageBooks">
+                <div class="accordion-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Sage Name</th>
+                                <th>Book Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.SageBooks)
+                            {
+                                <tr>
+                                    <td>@item.Sage.Name</td>
+                                    <td>@item.Book.Name</td>
+                                    <td>
+                                        <form action="@Url.Action("Delete", "SageBook", new { id = item.IdSageBook })" method="post">
+                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionOrderList">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOrderList">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrderList" aria-expanded="true" aria-controls="collapseOrderList">
+                    Order List
+                </button>
+            </h2>
+            <div id="collapseOrderList" class="accordion-collapse collapse" aria-labelledby="headingOrderList" data-bs-parent="#accordionOrderList">
+                <div class="accordion-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Total Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>@order.OrderId</td>
+                                    <td>@order.OrderDate.ToString("g")</td>
+                                    <td>@order.TotalAmount $</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-info">View Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

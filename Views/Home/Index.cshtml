@@ -1,0 +1,24 @@
+﻿@model AppOrmEntity.Models.ViewSageBook
+
+<h2 class="text-center mb-4">Book Store</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var sageBook in Model.SageBooks)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm rounded overflow-hidden">
+                <img src="@sageBook.Sage.Photo" alt="@sageBook.Sage.Name" class="card-img-top img-fluid d-block mx-auto" style="width: 200px; height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title text-center">@sageBook.Book.Name</h5>
+                    <p class="card-text">@sageBook.Book.Description</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="card-text mb-0"><strong>Price: </strong>@sageBook.Book.Price $</p>
+                        <a href="@Url.Action("AddToCart", "Cart", new { bookId = sageBook.Book.IdBook })" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center">
+                    <p class="mb-0"><strong>By Sage: </strong>@sageBook.Sage.Name</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

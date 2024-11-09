@@ -1,0 +1,28 @@
+﻿@model AppOrmEntity.Models.Order
+
+<h2>Order Details - @Model.OrderId</h2>
+<p><strong>Order Date:</strong> @Model.OrderDate.ToString("g")</p>
+<p><strong>Total Amount:</strong> @Model.TotalAmount $</p>
+
+<h3>Items</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.BookName</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Price * item.Quantity) $</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="window.history.back();">Go Back</button>

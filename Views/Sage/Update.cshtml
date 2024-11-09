@@ -1,0 +1,48 @@
+﻿@model AppOrmEntity.Models.Sage
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Update Sage</h2>
+
+    <form asp-area="" asp-controller="Sage" asp-action="Update" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+        <input type="hidden" asp-for="IdSage" />
+
+        <div class="form-group mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter Name" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Age" class="form-label">Age</label>
+            <input asp-for="Age" type="number" class="form-control" step="1" placeholder="Enter Age" required />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Photo" class="form-label">Photo</label>
+            <input type="file" class="form-control" name="photo" />
+            @if (!string.IsNullOrEmpty(Model.Photo))
+            {
+                <div class="mt-2">
+                    <p>Current Photo:</p>
+                    <img src="@Model.Photo" alt="Current Photo" class="img-thumbnail" style="max-width: 200px;" />
+                </div>
+            }
+            <span asp-validation-for="Photo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="City" class="form-label">City</label>
+            <input asp-for="City" class="form-control" placeholder="Enter City" required />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <input type="submit" value="Update" class="btn btn-primary px-5" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
